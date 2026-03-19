@@ -1,22 +1,28 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Casino API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication operations
+  - name: user
+    description: User operations
+  - name: transactions
+    description: Transaction operations
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,320 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout
+      responses:
+        "200":
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /user/profile:
+    get:
+      operationId: getUserProfile
+      tags: [user]
+      summary: Get user profile
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /transactions:
+    get:
+      operationId: getTransactions
+      tags: [transactions]
+      summary: Get user transactions
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [deposit, withdraw, all]
+          required: false
+        - name: limit
+          in: query
+          schema:
+            type: number
+          required: false
+      responses:
+        "200":
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionList"
+        "401":
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /transactions/deposit:
+    post:
+      operationId: createDeposit
+      tags: [transactions]
+      summary: Create a deposit request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DepositRequest"
+      responses:
+        "201":
+          description: Deposit created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /transactions/withdraw:
+    post:
+      operationId: createWithdraw
+      tags: [transactions]
+      summary: Create a withdraw request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WithdrawRequest"
+      responses:
+        "201":
+          description: Withdraw created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/users:
+    get:
+      operationId: adminGetUsers
+      tags: [admin]
+      summary: Admin - Get all users
+      responses:
+        "200":
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUserList"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/users/{id}/balance:
+    patch:
+      operationId: adminUpdateUserBalance
+      tags: [admin]
+      summary: Admin - Update user balance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBalanceRequest"
+      responses:
+        "200":
+          description: Balance updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/users/{id}/status:
+    patch:
+      operationId: adminUpdateUserStatus
+      tags: [admin]
+      summary: Admin - Update user status (active/suspended)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusRequest"
+      responses:
+        "200":
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/transactions:
+    get:
+      operationId: adminGetTransactions
+      tags: [admin]
+      summary: Admin - Get all transactions
+      responses:
+        "200":
+          description: List of all transactions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminTransactionList"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /admin/transactions/{id}/status:
+    patch:
+      operationId: adminUpdateTransactionStatus
+      tags: [admin]
+      summary: Admin - Update transaction status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTransactionStatusRequest"
+      responses:
+        "200":
+          description: Transaction status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Transaction"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +354,319 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        error:
+          type: string
+      required:
+        - message
+
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        bankAccountName:
+          type: string
+        referralCode:
+          type: string
+      required:
+        - username
+        - password
+        - confirmPassword
+        - phone
+        - bankName
+        - bankAccount
+        - bankAccountName
+
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+
+    AuthResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+      required:
+        - message
+        - user
+
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        balance:
+          type: number
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        bankAccountName:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+        status:
+          type: string
+          enum: [active, suspended]
+        createdAt:
+          type: string
+      required:
+        - id
+        - username
+        - balance
+        - role
+        - status
+        - createdAt
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        balance:
+          type: number
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        bankAccountName:
+          type: string
+        role:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+        totalDeposit:
+          type: number
+        totalWithdraw:
+          type: number
+      required:
+        - id
+        - username
+        - balance
+        - role
+        - status
+        - createdAt
+        - totalDeposit
+        - totalWithdraw
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: number
+        userId:
+          type: number
+        type:
+          type: string
+          enum: [deposit, withdraw]
+        amount:
+          type: number
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        bankAccountName:
+          type: string
+        paymentMethod:
+          type: string
+        promoCode:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - userId
+        - type
+        - amount
+        - status
+        - createdAt
+        - updatedAt
+
+    TransactionList:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+        total:
+          type: number
+      required:
+        - transactions
+        - total
+
+    DepositRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+        paymentMethod:
+          type: string
+        promoCode:
+          type: string
+      required:
+        - amount
+        - paymentMethod
+
+    WithdrawRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+      required:
+        - amount
+
+    AdminUserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        total:
+          type: number
+      required:
+        - users
+        - total
+
+    AdminTransactionList:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/AdminTransaction"
+        total:
+          type: number
+      required:
+        - transactions
+        - total
+
+    AdminTransaction:
+      type: object
+      properties:
+        id:
+          type: number
+        userId:
+          type: number
+        username:
+          type: string
+        type:
+          type: string
+          enum: [deposit, withdraw]
+        amount:
+          type: number
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        bankAccountName:
+          type: string
+        paymentMethod:
+          type: string
+        promoCode:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - userId
+        - username
+        - type
+        - amount
+        - status
+        - createdAt
+        - updatedAt
+
+    UpdateBalanceRequest:
+      type: object
+      properties:
+        balance:
+          type: number
+        notes:
+          type: string
+      required:
+        - balance
+
+    UpdateStatusRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [active, suspended]
+      required:
+        - status
+
+    UpdateTransactionStatusRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        notes:
+          type: string
+      required:
+        - status

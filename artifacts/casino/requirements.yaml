@@ -1,0 +1,20 @@
+packages:
+  "framer-motion": "For smooth page transitions and animated UI elements like the jackpot counter"
+  "react-hook-form": "For robust form state management"
+  "@hookform/resolvers": "For integrating Zod validation with react-hook-form"
+  "clsx": "Utility for conditionally joining class names"
+  "tailwind-merge": "Utility for merging tailwind classes without conflicts"
+  "date-fns": "For formatting transaction dates"
+
+images:
+  - path: "artifacts/casino/public/images/hero-banner.png"
+    description: "A luxurious online casino web banner featuring glowing gold coins, a shiny roulette wheel, and neon lights on a deep dark green background"
+    aspect_ratio: "16:9"
+  - path: "artifacts/casino/public/images/slot-banner.png"
+    description: "Exciting slot machine 777 jackpot graphics with gold bars and glowing yellow accents against a dark moody green background"
+    aspect_ratio: "16:9"
+
+notes:
+  - The UI uses a deep dark green and gold/yellow color scheme to match the reference.
+  - Using generated API hooks from @workspace/api-client-react.
+  - All form numbers are coerced properly using Zod.
