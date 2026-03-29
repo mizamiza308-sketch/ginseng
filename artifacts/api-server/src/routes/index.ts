@@ -4,6 +4,7 @@ import authRouter from "./auth";
 import userRouter from "./user";
 import transactionsRouter from "./transactions";
 import adminRouter from "./admin";
+import gameRouter from "./games";
 
 const router: IRouter = Router();
 
@@ -12,5 +13,5 @@ router.use("/auth", authRouter);
 router.use("/user", userRouter);
 router.use("/transactions", transactionsRouter);
 router.use("/admin", adminRouter);
-
+router.use("/games", gameRouter);
 export default router;

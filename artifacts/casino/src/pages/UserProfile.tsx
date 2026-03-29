@@ -111,6 +111,89 @@ export default function UserProfile() {
         </div>
 
       </div>
+      {/* BANK */}
+      <div className="px-4 mt-6 text-white">
+        <h2 className="mb-3 text-sm opacity-80">
+          Bekerja sama dengan BANK :
+        </h2>
+
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            "https://i.postimg.cc/pd1YQ0S7/ECsu-LWSup-Zten10M.png",
+            "https://i.postimg.cc/Nf76CGVR/3am-RHJF8Ew-KSBVe2.png",
+            "https://i.postimg.cc/hGwTQXzg/LKZNDc-Lk-KUZs-Yo-UV.png",
+            "https://i.postimg.cc/gjyZ74Mx/we-Gvms-Nb-B6gwaoi-M.png",
+            "https://i.postimg.cc/L8QZGJVv/r-VEHdclx-Lbl-S93Id.png",
+            "https://i.postimg.cc/qRyhtjHb/L2opavb-Hl-As-Acnn-Y.png",
+            "https://i.postimg.cc/tRdnpS5y/Kj2HNqebh-Gs-Xn-K2C.png",
+            "https://i.postimg.cc/fRPJB6zz/Be-CJaz-G7PUn-DPE8I.png",
+            "https://i.postimg.cc/MHzTnwDx/Lsi-Fq-FJz-Je-GLz7Jr.png",
+            "https://i.postimg.cc/Y2x0J4rY/a-Hag8AI2fxg-VHy-Mp.png",
+            "https://i.postimg.cc/9fTF10gW/2Bdt-Jpi-YQs-Tj-Ah-Si.png",
+            "https://i.postimg.cc/XNxNsTLQ/pzj-Mm-Pq-Lq-Jo-B4Gxm.png",
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="border border-yellow-500 rounded-lg p-2 bg-[#0b3d2e]"
+            >
+              <img
+                src={item}
+                className="h-8 mx-auto object-contain"
+                onError={(e) =>
+                  (e.currentTarget.src = "https://via.placeholder.com/50")
+                }
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* PROVIDER */}
+      <div className="px-4 mt-6 text-white">
+        <h2 className="mb-3 text-sm opacity-80">
+          Bekerja sama dengan PROVIDER :
+        </h2>
+
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            "https://i.postimg.cc/MpFs6KDy/h-P4ua-W1j9K2Aly-Vv.png",
+            "https://i.postimg.cc/Ghk83MxT/w9D4o4h-XE6Ffxkct.png",
+            "https://i.postimg.cc/tTKJpP1k/Qn9ydbba5HAHVpqt.png",
+            "https://i.postimg.cc/JzrnrRh9/STgyif-Wgfx-ZX8Xdd.png",
+            "https://i.postimg.cc/QtTN4t6J/7Ny-F4s7q-BEf-Zdz-Yv.png",
+            "https://i.postimg.cc/wT0zkL6L/4qva-CEy-Po-RKn-So-RK.png",
+            "https://i.postimg.cc/VvzyqLpT/q-Vj2pc4tq5j-NTETa.png",
+            "https://i.postimg.cc/T3FZkcBH/2bx-Uoi-MZi-TUWITao.png",
+            "https://i.postimg.cc/HWzFGmfX/o-RI9UH3Pqlr-Vdkrc.png",
+            "https://i.postimg.cc/mDRpqpj9/PCIJf-HBob-XU23DYh.png",
+            "https://i.postimg.cc/vB3hKYcm/q-KNOBHGMC3Wg7d-UY-(2).png",
+            "https://i.postimg.cc/bNGg6jPK/z3JBu-C9gd-C8YRGi5.png",
+            "https://i.postimg.cc/9MFtZ6JV/Ox-RGZisx-Bcq-Aj8e-M.png",
+            "https://i.postimg.cc/440bHFc1/NQLOXa-Cr-M298Sx-MK.png",
+
+"https://i.postimg.cc/Kvd6fN6q/Pc-M0ND3RJmz-Owky-M.png",
+      "https://i.postimg.cc/tTSfxtdt/gmmom-Xzs-Knwrcf-OJ.png",
+      "https://i.postimg.cc/g2F780hS/TS5Hs0Er3b-KNf1Gm.png",
+      "https://i.postimg.cc/PqKVgzR4/fn-DYsk-KRs-M11p1Uf.png",
+      "https://i.postimg.cc/kgskCmVh/JMWGAw-RJou-C2hm-H6.png",
+      "https://i.postimg.cc/MTM41fs8/Yp-Mis-Nvksb-UZnl9M.png",
+      "https://i.postimg.cc/h4m6jxzc/4Q4HAv8VBYl-UHAj-Z.png",
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="border border-yellow-500 rounded-lg p-1 bg-[#0b3d2e]"
+            >
+              <img
+                src={item}
+                className="h-8 mx-auto object-contain"
+                onError={(e) =>
+                  (e.currentTarget.src = "https://via.placeholder.com/50")
+                }
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 }

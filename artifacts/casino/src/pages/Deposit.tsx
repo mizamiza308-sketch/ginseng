@@ -75,9 +75,9 @@ export default function Deposit() {
               <label className="block text-sm font-bold text-muted-foreground mb-2">Tujuan Transfer</label>
               <select {...form.register("paymentMethod")} className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary transition-all">
                 <option value="">Pilih Tujuan (Bank/E-Wallet)</option>
-                <option value="BCA - 1234567890 (Kasinoku)">BCA - 1234567890 (Kasinoku)</option>
-                <option value="MANDIRI - 0987654321 (Kasinoku)">MANDIRI - 0987654321 (Kasinoku)</option>
-                <option value="DANA - 08123456789 (Kasinoku)">DANA - 08123456789 (Kasinoku)</option>
+                <option value="BCA - 1234567890 (Ryamiza agusta)">BCA - 1234567890 (Ryamiza agusta)</option>
+                <option value="MANDIRI - 0987654321 (Ryamiza agusta)">MANDIRI - 0987654321 (Ryamiza agusta)</option>
+                <option value="DANA - 08123456789 (Ryamiza agusta)">DANA - 08123456789 (Ryamiza agusta)</option>
               </select>
               {form.formState.errors.paymentMethod && <p className="text-destructive text-xs mt-1">{form.formState.errors.paymentMethod.message}</p>}
             </div>

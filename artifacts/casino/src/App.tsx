@@ -14,6 +14,7 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
 import AdminTransactions from "./pages/admin/Transactions";
 import NotFound from "@/pages/not-found";
+import GamePage from "./pages/gamePage";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,9 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/game/:provider">
+        <GamePage />
+      </Route>
       
       {/* User Routes */}
       <Route path="/user/profile">
@@ -70,6 +74,7 @@ function Router() {
 
       {/* 404 */}
       <Route component={NotFound} />
+      <Route path="/game/:provider" component={GamePage} />
     </Switch>
   );
 }

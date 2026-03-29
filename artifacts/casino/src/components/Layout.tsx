@@ -34,10 +34,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen pb-20 flex flex-col relative">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-md">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="font-display font-black text-2xl tracking-wider text-primary drop-shadow-[0_0_8px_rgba(247,183,29,0.5)]">
-              KASINOKU
+              
+
+                <img 
+                  src="https://i.postimg.cc/DZKr8dh2/file-00000000d94072088ae3dfbf5a6599e0.png"
+                  className="h-20 object-contain"
+                />
+              
             </span>
           </Link>
 
@@ -69,34 +75,34 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-2 flex justify-between items-center h-16">
           <NavItem 
             href="/" 
-            icon={<Home size={22} />} 
+             icon={<img src="https://i.postimg.cc/NM56nS5g/menu-1.png" className="w-6 h-6" />}
             label="Beranda" 
             isActive={location === "/"} 
           />
           <NavItem 
             href="/rtp" 
-            icon={<Gamepad2 size={22} />} 
+            icon={<img src="https://i.postimg.cc/4N8kgh3b/menu-2.png" className="w-6 h-6" />}
             label="RTP" 
-            isActive={location === "/rtp"} 
+            isActive={location === "/"} 
           />
           <NavItem 
             href={user ? "/user/profile" : "/login"} 
-            icon={<UserCircle size={22} />} 
+            icon={<img src="https://i.postimg.cc/J4RBstWc/menu-3.png" className="w-6 h-6" />}
             label={user ? "Profil" : "Masuk"} 
             isActive={location.startsWith("/user") || location === "/login"} 
-            highlight
+            
           />
           <NavItem 
             href="/promo" 
-            icon={<Gift size={22} />} 
+             icon={<img src="https://i.postimg.cc/q7K88YDY/menu-4.png" className="w-6 h-6" />}
             label="Promo" 
-            isActive={location === "/promo"} 
+            isActive={location === "/"} 
           />
           <NavItem 
             href="/contact" 
-            icon={<MessageSquare size={22} />} 
+            icon={<img src="https://i.postimg.cc/C5RM8ymS/menu-5.png" className="w-6 h-6" />}
             label="Hubungi" 
-            isActive={location === "/contact"} 
+            isActive={location === "/"} 
           />
         </div>
       </nav>
@@ -132,7 +138,38 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   </div>
                 ) : (
                   <div className="text-center py-4">
-                    <h3 className="font-display text-xl font-bold text-primary mb-4">KASINOKU</h3>
+                    <h3 className="font-display text-xl font-bold text-primary mb-4">69</h3>
+
+              {/* FORM */}
+                          <div className="space-y-3">
+
+                            {/* USERNAME */}
+                            <div className="flex items-center border border-white rounded-lg px-3">
+                              <img
+                                src="https://i.postimg.cc/NG760f4X/username.png"
+                                className="w-5 h-5 mr-2"
+                              />
+                              <input
+                                type="text"
+                                placeholder="Username"
+                                className="w-full p-3 bg-transparent text-white outline-none placeholder-gray-300"
+                              />
+                            </div>
+
+                            {/* PASSWORD */}
+                            <div className="flex items-center border border-white rounded-lg px-3">
+                              <img
+                                src="https://i.postimg.cc/R0Srj0XX/password.png"
+                                className="w-5 h-5 mr-2"
+                              />
+                              <input
+                                type="password"
+                                placeholder="Password"
+                                className="w-full p-3 bg-transparent text-white outline-none placeholder-gray-300"
+                              />
+                            </div>
+
+                          </div>
                     <div className="flex flex-col gap-2">
                       <Link href="/login" onClick={() => setIsMenuOpen(false)}>
                         <button className="w-full py-2 rounded bg-primary text-primary-foreground font-bold hover:brightness-110 transition-all">MASUK</button>
@@ -142,7 +179,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       </Link>
                     </div>
                   </div>
-                )}
+              )}
+              {/* MENU */}
+              <div className="mt-6 border-t border-gray-600 pt-4 space-y-4 text-white">
+                <div className="flex items-center gap-2">
+                  📖 <span>Buku Mimpi</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  💻 <span>Versi Desktop</span>
+                </div>
+              </div>
+                
               </div>
 
               <div className="flex-1 overflow-y-auto py-4 px-2 space-y-1">

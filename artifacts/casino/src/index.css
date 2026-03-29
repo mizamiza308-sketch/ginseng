@@ -126,3 +126,32 @@
   border: 1px solid rgba(247, 183, 29, 0.4);
   box-shadow: 0 0 8px rgba(247, 183, 29, 0.2), inset 0 0 8px rgba(247, 183, 29, 0.05);
 }
+
+.togel-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.togel-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+.togel-card {
+  background: linear-gradient(180deg, #0f3d2e, #0a2a1f);
+  border-radius: 15px;
+  padding: 12px;
+  color: white;
+}
+
+.togel-number {
+  background: #ffc107;
+  color: black;
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}
